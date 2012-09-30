@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Einloggen</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Einloggen</h1>
+    <p>Zum Einloggen die normalen <a href='http://www.readmore.de/'>readmore.de</a>-Zugangsdaten verwenden.
+       Die Daten werden nicht gespeichert, siehe <a href='https://github.com/hangy/rm-login'>hier</a>.</p>
+    <form method='post'>
+      <div>
+        <p>
+          <label for='email'>E-Mail-Adresse</label><br>
+          <input type='email' name='email' autofocus>
+        </p>
+        <p>
+          <label for='password'>Passwort</label><br>
+          <input type='password' name='password'>
+        </p>
+        <p>
+          <input type='submit'><input type='hidden' name='_mode' value='post'>
+        </p>
+      </div>
+    </form>
+  </body>
+</html>
