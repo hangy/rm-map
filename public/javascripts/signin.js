@@ -6,6 +6,7 @@ function initSignin() {
       'Einloggen': function() {
         var options = {
           success: function(data) {
+            userid = parseInt(data.userid);
             $.getJSON('/json', function(data) {
               pointsToMarkers(data);
               $('#signin-form').dialog('close');
