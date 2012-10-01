@@ -2,14 +2,17 @@
 <html>
   <head>
     <title>readmore.de user map</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <style type="text/css">
+    <link rel='stylesheet' href='/stylesheets/style.css'>
+    <style type='text/css'>
       html { height: 100% }
       body { height: 100%; margin: 0px; padding: 0px }
       #map_canvas { height: 100% }
     </style>
-    <script src='http://code.jquery.com/jquery.min.js'></script>
-    <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <link rel='stylesheet' href='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css'>
+    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
+    <script src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js'></script>
+    <script src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/i18n/jquery-ui-i18n.min.js'></script>
+    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
     <script>
       function initialize() {
         var mapOptions = {
@@ -70,8 +73,8 @@
       }
     </script>
   </head>
-  <body onload="initialize()">
-    <h1 style="display:none;">rm user map</h1>
-    <div id="map_canvas"></div>
+  <body onload='initialize()'>
+    <h1 style='display:none;'>rm user map</h1>
+    <div id='map_canvas'></div>
   </body>
 </html>
