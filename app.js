@@ -1,15 +1,9 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
   , routes = require('./routes')
   , signin = require('./routes/signin')
   , json = require('./routes/json')
   , http = require('http')
   , path = require('path');
-
 
 var Db = require('mongodb').Db
   , Server = require('mongodb').Server
@@ -58,12 +52,11 @@ function restrict(req, res, next) {
     next();
   } else {
     req.session.error = 'Access denied!';
-    res.redirect('signin');
+    res.send(403);
   }
 }
 
-app.get('/', restrict, routes.index);
-app.get('/signin', signin.form);
+app.get('/', routes.index);
 app.post('/signin', signin.validate);
 app.get('/json', restrict, json.retrieve);
 app.post('/json', restrict, json.create);

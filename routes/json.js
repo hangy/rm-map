@@ -1,8 +1,3 @@
-function writeJsonAndEnd(res, data) {
-  res.writeHead(200, {'Content-Type': 'application/json'});
-  res.end(JSON.stringify(data));
-}
-
 function reqToLoc(req) {
   return bodyToLoc(req.body);
 }
@@ -16,7 +11,7 @@ exports.retrieve = function(req, res){
     conn.collection('points', function(err, coll){
       coll.find({}, {}, function(err, cursor){
         cursor.toArray(function(err, items){
-          writeJsonAndEnd(res, items);
+          res.json(200, items);
         });
       });
     });
@@ -33,7 +28,7 @@ exports.create = function(req, res) {
         loc: reqToLoc(req)
       };
       coll.insert(doc, {safe: true}, function(err, records){
-        writeJsonAndEnd(res, records);
+        res.json(201, records);
       });
     });
   });
@@ -51,7 +46,7 @@ exports.update = function(req, res) {
         {$set: {loc: reqToLoc(req) }},
         {safe: true, multi: false, upsert: false},
         function (err, modified) {
-          res.end(modified + '\n');
+          res.json(200, { modified: modified });
         });
     });
   });
