@@ -1,7 +1,9 @@
 var login = require('rm-login');
 
 exports.form = function(req, res){
- res.render('signin');
+ req.session.regenerate(function(){
+   res.render('signin');
+ });
 };
 
 exports.validate = function(req, res){
@@ -10,7 +12,7 @@ exports.validate = function(req, res){
    req.session.regenerate(function(){
     req.session.userid = userid;
     req.session.nick = nick;
-    res.redirect('map');
+    res.redirect('/');
    });
   } else {
    res.render('signin');

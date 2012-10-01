@@ -6,7 +6,6 @@
 var express = require('express')
   , routes = require('./routes')
   , signin = require('./routes/signin')
-  , map = require('./routes/map')
   , json = require('./routes/json')
   , http = require('http')
   , path = require('path');
@@ -64,10 +63,9 @@ function restrict(req, res, next) {
   }
 }
 
-app.get('/', routes.index);
+app.get('/', restrict, routes.index);
 app.get('/signin', signin.form);
 app.post('/signin', signin.validate);
-app.get('/map', restrict, map.index);
 app.get('/json', restrict, json.retrieve);
 app.post('/json', restrict, json.create);
 app.put('/json/:id', restrict, json.update);
