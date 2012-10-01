@@ -2,7 +2,7 @@ var login = require('rm-login');
 
 exports.form = function(req, res){
  req.session.regenerate(function(){
-   res.render('signin');
+  res.render('signin', { email: '' });
  });
 };
 
@@ -15,7 +15,7 @@ exports.validate = function(req, res){
     res.redirect('/');
    });
   } else {
-   res.render('signin');
+   res.render('signin', { email: req.body.email });
   }
  });
 };
