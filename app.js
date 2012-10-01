@@ -11,18 +11,30 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+
+var Db = require('mongodb').Db
+  , Server = require('mongodb').Server
+  , server_config = new Server('localhost', 27017, {auto_reconnect: true, native_parser: true})
+  , db = new Db('rmmap', server_config, {})
+  , mongoStore = require('connect-mongodb');
+
 var app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
+  app.set('trust proxy', true);
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('kDzRXXNU5RzKpLQsKWTxU4uX'));
-  app.use(express.session());
+  app.use(express.session({
+    cookie: {maxAge: 3600000},
+    secret: 'kDzRXXNU5RzKpLQsKWTxU4uX',
+    store: new mongoStore({db: db})
+  }));
   app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public')));
