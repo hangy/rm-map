@@ -48,7 +48,7 @@ function restrict(req, res, next) {
     next();
   } else {
     req.session.error = 'Access denied!';
-    res.redirect('/signin');
+    res.redirect('signin');
   }
 }
 

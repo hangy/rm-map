@@ -5,12 +5,12 @@ exports.form = function(req, res){
 };
 
 exports.validate = function(req, res){
- login(req.body.email, req.body.password, function(userid, nick){
+ login(req, req.body.email, req.body.password, function(userid, nick){
   if (userid && nick) {
    req.session.regenerate(function(){
     req.session.userid = userid;
     req.session.nick = nick;
-    res.redirect('index');
+    res.redirect('map');
    });
   } else {
    res.render('signin');
