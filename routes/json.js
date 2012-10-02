@@ -21,14 +21,26 @@ exports.retrieve = function(req, res){
 exports.create = function(req, res) {
   require('mongodb').connect(res.app.get('mongodb'), function(err, conn){
     conn.collection('points', function(err, coll){
-      var doc = {
-        userid: parseInt(req.session.userid),
-        nick: req.session.nick,
-        description: '',
-        loc: reqToLoc(req)
-      };
-      coll.insert(doc, {safe: true}, function(err, records){
-        res.json(201, records);
+      coll.find({userid: parseInt(req.session.userid)},
+        {}).count(function(err, count){
+        if (count >= 5) {
+          res.json(500, []);
+        } else {
+          var doc = {
+            userid: parseInt(req.session.userid),
+            nick: req.session.nick,
+            description: '',
+            loc: reqToLoc(req),
+            added: new Date()
+          };
+          coll.insert(doc, {safe: true}, function(err, records){
+            if (err) {
+              res.json(500, []);
+            } else {
+              res.json(201, records);
+            }
+          });
+        }
       });
     });
   });
@@ -43,10 +55,14 @@ exports.update = function(req, res) {
     conn.collection('points', function(err, coll){
       coll.update(
         {_id: o_id, userid: parseInt(req.session.userid)},
-        {$set: {loc: reqToLoc(req) }},
+        {$set: {loc: reqToLoc(req), updated: new Date() }},
         {safe: true, multi: false, upsert: false},
         function (err, modified) {
-          res.json(200, { modified: modified });
+          if (err || modified != 1) {
+            res.json(500, { modified: modified });
+          } else {
+            res.json(200, { modified: modified });
+          }
         });
     });
   });
