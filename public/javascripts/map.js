@@ -21,20 +21,26 @@ function pointsToMarkers(data) {
       map: map,
       title: val.nick,
       draggable: userid == val.userid,
-      _id: val._id
+      _id: val._id,
+      description: val.description,
+      userid: val.userid
     });
 
     google.maps.event.addListener(marker, 'dragend', updatePoint);
+    google.maps.event.addListener(marker, 'click', showPointDialog);
   });
 }
 
 function createPoint(event) {
+  var description = prompt('Worum geht es? (Wohnung, Studium, Arbeit, Hotel Mama, ...)');
+
   $.ajax({
     url: '/json/',
     type: 'POST',
     data: {
       lat: event.latLng.lat(),
-      lng: event.latLng.lng()
+      lng: event.latLng.lng(),
+      description: description
     },
     success: pointsToMarkers
   });
@@ -49,4 +55,22 @@ function updatePoint() {
       lng: this.getPosition().lng()
     }
   });
+};
+
+function showPointDialog() {
+  var marker = this;
+
+  if (userid == marker.userid) {
+    if (confirm('Löschen?')) {
+      $.ajax({
+        url: '/json/' + marker._id,
+        type: 'DELETE',
+        success: function() {
+          marker.setMap(null);
+        }
+      });
+    }
+  } else {
+    alert(marker.description);
+  }
 };

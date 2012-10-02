@@ -29,7 +29,7 @@ exports.create = function(req, res) {
           var doc = {
             userid: parseInt(req.session.userid),
             nick: req.session.nick,
-            description: '',
+            description: req.body.description,
             loc: reqToLoc(req),
             added: new Date()
           };
@@ -75,7 +75,16 @@ exports.delete = function(req, res) {
 
   mongo.connect(res.app.get('mongodb'), function(err, conn){
     conn.collection('points', function(err, coll){
-      coll.remove({_id: o_id, userid: parseInt(req.session.userid)});
+      coll.remove(
+        {_id: o_id, userid: parseInt(req.session.userid)},
+        {safe: true, single: true},
+        function(err) {
+          if (err) {
+            res.json(500, null);
+          } else {
+            res.json(200, null);
+          }
+        });
     });
   });
-};
+}
