@@ -64,7 +64,7 @@ function showPointDialog() {
   var marker = this;
 
   if (userid == marker.userid) {
-    if (confirm('Löschen?')) {
+    if (confirm('LÃ¶schen?')) {
       $.ajax({
         url: '/json/' + marker._id,
         type: 'DELETE',
