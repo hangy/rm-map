@@ -64,17 +64,41 @@ function updatePoint() {
 function showPointDialog() {
   var marker = this;
 
+  var dlg = $('<div></div>');
+  dlg.attr('title', marker.title + ' @ ' + marker.description);
+
+  var ifr = $('<iframe></iframe>');
+  dlg.append(ifr);
+
+  ifr.attr('src', 'http://www.readmore.de/index.php?cont=profile&id=' + marker.userid);
+  ifr.attr('height', $(window).height() * 0.9);
+  ifr.attr('width',  $(window).width() * 0.9);
+
+  $('body').append(dlg);
+  var buttons;
   if (userid == marker.userid) {
-    if (confirm('Löschen?')) {
-      $.ajax({
-        url: '/json/' + marker._id,
-        type: 'DELETE',
-        success: function() {
-          marker.setMap(null);
-        }
-      });
-    }
+    buttons = {
+      "Löschen": function() {
+        $.ajax({
+          url: '/json/' + marker._id,
+          type: 'DELETE',
+          success: function() {
+            marker.setMap(null);
+           dlg.dialog('close');
+          }
+        });
+      }
+    };
   } else {
-    alert(marker.description);
+    buttons = {};
   }
+
+  dlg.dialog({
+    height: ifr.attr('height'),
+    width: ifr.attr('width'),
+    buttons: buttons,
+    close: function(event, ui) {
+      $('body').remove(dlg);
+    }
+  });
 };
