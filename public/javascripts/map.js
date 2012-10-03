@@ -11,7 +11,7 @@ function initMap() {
     $.getJSON('/json', pointsToMarkers);
   }
 
-  google.maps.event.addListener(map, 'dblclick', createPoint);
+  google.maps.event.addListener(map, 'rightclick', createPoint);
 }
 
 function pointsToMarkers(data) {
