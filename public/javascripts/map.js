@@ -35,18 +35,19 @@ function pointsToMarkers(data) {
 }
 
 function createPoint(event) {
-  var description = prompt('Worum geht es? (Wohnung, Studium, Arbeit, Hotel Mama, ...)');
-
-  $.ajax({
-    url: '/json/',
-    type: 'POST',
-    data: {
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-      description: description
-    },
-    success: pointsToMarkers
-  });
+  var description = prompt('Worum geht es? (Wohnung, Studium, Arbeit, Hotel Mama, …)');
+  if (description) {
+    $.ajax({
+      url: '/json/',
+      type: 'POST',
+      data: {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+        description: description
+      },
+      success: pointsToMarkers
+    });
+  }
 }
 
 function updatePoint() {
