@@ -16,9 +16,12 @@ function initMap() {
 
 function pointsToMarkers(data) {
   $.each(data, function(key, val) {
+    var icon = new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + stringToColor(val.userid.toString()));
+
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(val.loc[0], val.loc[1]),
       map: map,
+      icon: icon,
       title: val.nick,
       draggable: userid == val.userid,
       _id: val._id,
