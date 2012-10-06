@@ -14,6 +14,10 @@ function initMap() {
   signout.show();
   map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(signout.get(0));
 
+  var src = $('#src');
+  src.show();
+  map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(src.get(0));
+
   google.maps.event.addListener(map, 'rightclick', createPoint);
 }
 
