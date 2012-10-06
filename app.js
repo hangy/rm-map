@@ -12,6 +12,8 @@ var Db = require('mongodb').Db
   , db = new Db('rmmap', server_config, {})
   , mongoStore = require('connect-mongodb');
 
+var secret = require('fs').readFileSync('secret').toString();
+
 var app = express();
 
 app.configure(function(){
@@ -23,10 +25,10 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.cookieParser('kDzRXXNU5RzKpLQsKWTxU4uX'));
+  app.use(express.cookieParser(secret));
   app.use(express.session({
     cookie: {maxAge: 3600000},
-    secret: 'kDzRXXNU5RzKpLQsKWTxU4uX',
+    secret: secret,
     store: new mongoStore({db: db})
   }));
   app.use(app.router);
