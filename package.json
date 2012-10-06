@@ -11,6 +11,6 @@
     "ejs": "*",
     "stylus": "*",
     "mongodb": "*",
-    "connect-mongodb:" "1.x"
+    "connect-mongodb": "1.x"
   }
 }

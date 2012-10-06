@@ -1,7 +1,6 @@
 function initMap() {
   var mapOptions = {
     zoom: 6,
-    disableDoubleClickZoom: true,
     center: new google.maps.LatLng(51.165, 10.455278),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
@@ -10,6 +9,10 @@ function initMap() {
   if (null != userid) {
     $.getJSON('/json', pointsToMarkers);
   }
+
+  var signout = $('#signout');
+  signout.show();
+  map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(signout.get(0));
 
   google.maps.event.addListener(map, 'rightclick', createPoint);
 }
