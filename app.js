@@ -12,7 +12,7 @@ var Db = require('mongodb').Db
   , db = new Db('rmmap', server_config, {})
   , mongoStore = require('connect-mongodb');
 
-var secret = require('fs').readFileSync('secret').toString();
+var secret = require('fs').readFileSync(__dirname + '/secret').toString();
 
 var app = express();
 
