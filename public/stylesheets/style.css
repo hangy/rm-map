@@ -9,3 +9,5 @@ body { height: 100%; margin: 0px; padding: 0px; font-family: Verdana,Arial,sans-
   display: none;
   font-size: xx-small;
 }
+.disclaimer { font-size: x-small; }
+h1 { display: none; }
