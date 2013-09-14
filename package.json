@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "rm-login": "git://github.com/hangy/rm-login.git",
-    "express": "3.0.0rc4",
+    "express": "3.x",
     "ejs": "*",
     "stylus": "*",
     "mongodb": "*",

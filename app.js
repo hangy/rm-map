@@ -9,7 +9,7 @@ var express = require('express')
 var Db = require('mongodb').Db
   , Server = require('mongodb').Server
   , server_config = new Server('localhost', 27017, {auto_reconnect: true, native_parser: true})
-  , db = new Db('rmmap', server_config, {})
+  , db = new Db('rmmap', server_config, {w:1})
   , mongoStore = require('connect-mongodb');
 
 var secret = require('fs').readFileSync(__dirname + '/secret').toString();
